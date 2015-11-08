@@ -22,5 +22,17 @@ namespace ContactAPI.Controllers
                 PhoneTypeCode = "MOBILE"
             };
         }
+
+        [HttpPost]
+        public IHttpActionResult AddContact(Contact contact)
+        {
+            if (contact == null) return BadRequest();
+            using (var db = new ContactContext())
+            {
+                db.ContactSet.Add(contact);
+                db.SaveChanges();
+            }
+            return Ok();
+        }
     }
 }
